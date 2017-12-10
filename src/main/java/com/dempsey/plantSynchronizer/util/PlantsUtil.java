@@ -1,6 +1,5 @@
 package com.dempsey.plantSynchronizer.util;
 
-import com.dempsey.plantSynchronizer.controller.PlantController;
 import com.dempsey.plantSynchronizer.entity.Plant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

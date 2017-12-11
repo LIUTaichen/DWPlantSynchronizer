@@ -30,7 +30,6 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('com.microsoft.sqlserver:mssql-jdbc')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -38,3 +37,4 @@ dependencies {
 	compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
 	compile 'com.google.apis:google-api-services-sheets:v4-rev493-1.23.0'
 }
+

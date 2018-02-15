@@ -2,7 +2,11 @@ package com.dempsey.plantSynchronizer.service;
 
 
 import com.dempsey.plantSynchronizer.dao.PlantRepository;
+import com.dempsey.plantSynchronizer.dao.ProjectRepository;
+import com.dempsey.plantSynchronizer.dao.ResourceOwnerRepository;
 import com.dempsey.plantSynchronizer.entity.Plant;
+import com.dempsey.plantSynchronizer.entity.Project;
+import com.dempsey.plantSynchronizer.entity.ResourceOwner;
 import com.dempsey.plantSynchronizer.util.PlantsUtil;
 import com.dempsey.plantSynchronizer.util.SheetAPIUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -47,6 +51,12 @@ public class PlantListAPIService {
 
     @Autowired
     private PlantRepository plantRepository;
+
+    @Autowired
+    private ResourceOwnerRepository resourceOwnerRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
 
 
@@ -127,6 +137,12 @@ public class PlantListAPIService {
 
     public List<ValueRange> generateUpdate(Map<String, Plant> plantMap, List<String> headers, List<Map<String, String>> converted){
         List<ValueRange> updatesRequired = new ArrayList<ValueRange>();
+        Map<Integer, String> projectMap = new HashMap<Integer, String>();
+        Map<Integer, String> ownerMap = new HashMap<Integer, String>();
+
+        projectRepository.findAll().forEach(project -> projectMap.put(project.getId(), project.getProject_ID()));
+        resourceOwnerRepository.findAll().forEach(owner -> ownerMap.put(owner.getId(),owner.getCompany()));
+
 
 
         for(Map<String, String> row: converted){
@@ -146,6 +162,20 @@ public class PlantListAPIService {
                 shirleyValueMap.put("WOF Due", plantInShirley.getCert_Due() != null ? sdf.format(plantInShirley.getCert_Due()): "");
                 shirleyValueMap.put("Hub KM",plantInShirley.getHub_Reading() != null ?  plantInShirley.getHub_Reading().toString(): "");
                 shirleyValueMap.put("RUC Due", plantInShirley.getRUC_Due() != null ? plantInShirley.getRUC_Due().toString(): "");
+                //for owner
+                String plantOwner =ownerMap.get(plantInShirley.getOwner());
+                if(plantOwner!= null &&!plantOwner.isEmpty()){
+                    shirleyValueMap.put("Plant Owner", plantOwner);
+                }
+
+
+                //for  job no
+
+                String department =projectMap.get(plantInShirley.getLast_Log_Project());
+                if(department!= null &&!department.isEmpty()){
+                    shirleyValueMap.put("Department", department);
+                }
+
 
                 shirleyValueMap.keySet().forEach(key -> {
                         String oldValue = row.get(key);

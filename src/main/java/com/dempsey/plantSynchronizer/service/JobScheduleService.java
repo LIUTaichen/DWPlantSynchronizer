@@ -17,7 +17,7 @@ public class JobScheduleService {
     @Autowired
     private PlantListAPIService apiService;
 
-    @Scheduled(cron="0 0 6-19 *  * MON-FRI", zone="NZ")
+    //@Scheduled(cron="0 0 6-19 *  * MON-FRI", zone="NZ")
     public void generateDailyLoadCountReport() {
         log.info("running scheduled synchronization");
         apiService.syncPlantListWithShirley();

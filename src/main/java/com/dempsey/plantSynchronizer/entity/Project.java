@@ -11,33 +11,33 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="Project")
-@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
 public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="ID", unique=true, nullable=false)
-	private int id;
+	private Integer id;
 
 	@Column(name="Active", nullable=false)
 	private boolean active;
 
 	@Column(name="Client")
-	private int client;
+	private Integer client;
 
 	@Column(name="Date_Created", length=1)
-	private String date_Created;
+	private String dateCreated;
 
-	private String dCurrent_Week;
+	@Column(name="dcurrent_Week")
+	private Date dCurrentWeek;
 
 	@Column(name="End_Date")
-	private Date end_Date;
+	private Date endDate;
 
 	@Column(name="Last_Modified", length=1)
-	private String last_Modified;
+	private String lastModified;
 
 	@Column(name="Last_Submitted_By")
-	private String last_Submitted_By;
+	private String lastSubmitted_By;
 
 	@Column(name="Location")
 	private String location;
@@ -46,28 +46,28 @@ public class Project implements Serializable {
 	private String notes;
 
 	@Column(name="On_Hold", nullable=false)
-	private boolean on_Hold;
+	private boolean onHold;
 
 	@Column(name="Project_Details", nullable=false)
-	private String project_Details;
+	private String projectDetails;
 
 	@Column(name="Project_ID")
-	private String project_ID;
+	private String projectID;
 
 	@Column(name="Project_Manager")
-	private int project_Manager;
+	private Integer projectManager;
 
 	@Column(name="Project_Name")
-	private String project_Name;
+	private String projectName;
 
 	@Column(name="QS")
-	private int qs;
+	private Integer qs;
 
 	@Column(name="Show_On_Civil_Jobs_List", nullable=false)
-	private boolean show_On_Civil_Jobs_List;
+	private boolean showOnCivilJobsList;
 
 	@Column(name="Start_Date")
-	private Date start_Date;
+	private Date startDate;
 
 	public Project() {
 	}
@@ -76,11 +76,11 @@ public class Project implements Serializable {
 		return serialVersionUID;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -92,52 +92,52 @@ public class Project implements Serializable {
 		this.active = active;
 	}
 
-	public int getClient() {
+	public Integer getClient() {
 		return client;
 	}
 
-	public void setClient(int client) {
+	public void setClient(Integer client) {
 		this.client = client;
 	}
 
-	public String getDate_Created() {
-		return date_Created;
+	public String getDateCreated() {
+		return dateCreated;
 	}
 
-	public void setDate_Created(String date_Created) {
-		this.date_Created = date_Created;
+	public void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
-	public String getdCurrent_Week() {
-		return dCurrent_Week;
+	public Date getdCurrentWeek() {
+		return dCurrentWeek;
 	}
 
-	public void setdCurrent_Week(String dCurrent_Week) {
-		this.dCurrent_Week = dCurrent_Week;
+	public void setdCurrentWeek(Date dCurrentWeek) {
+		this.dCurrentWeek = dCurrentWeek;
 	}
 
-	public Date getEnd_Date() {
-		return end_Date;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_Date(Date end_Date) {
-		this.end_Date = end_Date;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
-	public String getLast_Modified() {
-		return last_Modified;
+	public String getLastModified() {
+		return lastModified;
 	}
 
-	public void setLast_Modified(String last_Modified) {
-		this.last_Modified = last_Modified;
+	public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
 	}
 
-	public String getLast_Submitted_By() {
-		return last_Submitted_By;
+	public String getLastSubmitted_By() {
+		return lastSubmitted_By;
 	}
 
-	public void setLast_Submitted_By(String last_Submitted_By) {
-		this.last_Submitted_By = last_Submitted_By;
+	public void setLastSubmitted_By(String lastSubmitted_By) {
+		this.lastSubmitted_By = lastSubmitted_By;
 	}
 
 	public String getLocation() {
@@ -156,67 +156,91 @@ public class Project implements Serializable {
 		this.notes = notes;
 	}
 
-	public boolean isOn_Hold() {
-		return on_Hold;
+	public boolean isOnHold() {
+		return onHold;
 	}
 
-	public void setOn_Hold(boolean on_Hold) {
-		this.on_Hold = on_Hold;
+	public void setOnHold(boolean onHold) {
+		this.onHold = onHold;
 	}
 
-	public String getProject_Details() {
-		return project_Details;
+	public String getProjectDetails() {
+		return projectDetails;
 	}
 
-	public void setProject_Details(String project_Details) {
-		this.project_Details = project_Details;
+	public void setProjectDetails(String projectDetails) {
+		this.projectDetails = projectDetails;
 	}
 
-	public String getProject_ID() {
-		return project_ID;
+	public String getProjectID() {
+		return projectID;
 	}
 
-	public void setProject_ID(String project_ID) {
-		this.project_ID = project_ID;
+	public void setProjectID(String projectID) {
+		this.projectID = projectID;
 	}
 
-	public int getProject_Manager() {
-		return project_Manager;
+	public Integer getProjectManager() {
+		return projectManager;
 	}
 
-	public void setProject_Manager(int project_Manager) {
-		this.project_Manager = project_Manager;
+	public void setProjectManager(Integer projectManager) {
+		this.projectManager = projectManager;
 	}
 
-	public String getProject_Name() {
-		return project_Name;
+	public String getProjectName() {
+		return projectName;
 	}
 
-	public void setProject_Name(String project_Name) {
-		this.project_Name = project_Name;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
-	public int getQs() {
+	public Integer getQs() {
 		return qs;
 	}
 
-	public void setQs(int qs) {
+	public void setQs(Integer qs) {
 		this.qs = qs;
 	}
 
-	public boolean isShow_On_Civil_Jobs_List() {
-		return show_On_Civil_Jobs_List;
+	public boolean isShowOnCivilJobsList() {
+		return showOnCivilJobsList;
 	}
 
-	public void setShow_On_Civil_Jobs_List(boolean show_On_Civil_Jobs_List) {
-		this.show_On_Civil_Jobs_List = show_On_Civil_Jobs_List;
+	public void setShowOnCivilJobsList(boolean showOnCivilJobsList) {
+		this.showOnCivilJobsList = showOnCivilJobsList;
 	}
 
-	public Date getStart_Date() {
-		return start_Date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_Date(Date start_Date) {
-		this.start_Date = start_Date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Project{" +
+				"id=" + id +
+				", active=" + active +
+				", client=" + client +
+				", dateCreated='" + dateCreated + '\'' +
+				", dCurrentWeek=" + dCurrentWeek +
+				", endDate=" + endDate +
+				", lastModified='" + lastModified + '\'' +
+				", lastSubmitted_By='" + lastSubmitted_By + '\'' +
+				", location='" + location + '\'' +
+				", notes='" + notes + '\'' +
+				", onHold=" + onHold +
+				", projectDetails='" + projectDetails + '\'' +
+				", projectID='" + projectID + '\'' +
+				", projectManager=" + projectManager +
+				", projectName='" + projectName + '\'' +
+				", qs=" + qs +
+				", showOnCivilJobsList=" + showOnCivilJobsList +
+				", startDate=" + startDate +
+				'}';
 	}
 }

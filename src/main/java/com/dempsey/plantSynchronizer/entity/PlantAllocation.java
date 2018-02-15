@@ -60,8 +60,10 @@ public class PlantAllocation implements Serializable {
 	@Column(name="PM")
 	private String pm;
 
-	@Column(name="project_fk")
-	private Integer projectFk;
+
+	@OneToOne
+	@JoinColumn(name = "project_fk")
+	private Project project;
 
 	@Column(name="Scope")
 	private String scope;
@@ -193,13 +195,6 @@ public class PlantAllocation implements Serializable {
 		this.pm = pm;
 	}
 
-	public Integer getProjectFk() {
-		return projectFk;
-	}
-
-	public void setProjectFk(Integer projectFk) {
-		this.projectFk = projectFk;
-	}
 
 	public String getScope() {
 		return scope;
@@ -233,28 +228,38 @@ public class PlantAllocation implements Serializable {
 		this.typeOfWork = typeOfWork;
 	}
 
-	@Override
-	public String toString() {
-		return "PlantAllocation{" +
-				"active=" + active +
-				", costCode=" + costCode +
-				", dateAvailable='" + dateAvailable + '\'' +
-				", dateCreated='" + dateCreated + '\'' +
-				", dateRequired='" + dateRequired + '\'' +
-				", dayRate=" + dayRate +
-				", dWeek='" + dWeek + '\'' +
-				", id=" + id +
-				", lastModified='" + lastModified + '\'' +
-				", notes=" + notes +
-				", personnel=" + personnel +
-				", personnelFk=" + personnelFk +
-				", plantID=" + plantID +
-				", pm='" + pm + '\'' +
-				", projectFk=" + projectFk +
-				", scope='" + scope + '\'' +
-				", SSMA_TimeStamp=" + SSMA_TimeStamp +
-				", state='" + state + '\'' +
-				", typeOfWork='" + typeOfWork + '\'' +
-				'}';
-	}
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    @Override
+    public String toString() {
+        return "PlantAllocation{" +
+                "id=" + id +
+                ", active=" + active +
+                ", costCode=" + costCode +
+                ", dateAvailable=" + dateAvailable +
+                ", dateCreated=" + dateCreated +
+                ", dateRequired=" + dateRequired +
+                ", dayRate=" + dayRate +
+                ", dWeek=" + dWeek +
+                ", lastModified='" + lastModified + '\'' +
+                ", notes='" + notes + '\'' +
+                ", personnel='" + personnel + '\'' +
+                ", personnelFk=" + personnelFk +
+                ", plantID=" + plantID +
+                ", pm='" + pm + '\'' +
+                ", project=" + project +
+                ", scope='" + scope + '\'' +
+                ", SSMA_TimeStamp=" + SSMA_TimeStamp +
+                ", state='" + state + '\'' +
+                ", typeOfWork='" + typeOfWork + '\'' +
+                '}';
+    }
+
+
 }

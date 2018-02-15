@@ -58,6 +58,9 @@ public class PlantListAPIService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private PlantAllocationService allocationService;
+
 
 
 
@@ -171,7 +174,7 @@ public class PlantListAPIService {
 
                 //for  job no
 
-                String department =projectMap.get(plantInShirley.getLast_Log_Project());
+                String department = allocationService.getDepartment(plantInShirley.getId());
                 if(department!= null &&!department.isEmpty()){
                     shirleyValueMap.put("Department", department);
                 }

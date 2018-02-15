@@ -25,7 +25,9 @@ public class PlantSynchronizerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//apiService.syncPlantListWithShirley();
-		allocationService.findAll();
+		apiService.syncPlantListWithShirley();
+		//String department = allocationService.getDepartment(1570);
+		//System.out.println("department is : " + department);
+
 	}
 }

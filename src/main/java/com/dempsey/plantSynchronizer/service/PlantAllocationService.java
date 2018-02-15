@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PlantAllocationService {
@@ -26,4 +25,36 @@ public class PlantAllocationService {
 
         return resultList;
     }
+
+    public String getDepartment(Integer plantId) {
+        String department = "";
+        List<PlantAllocation> allocations = plantAllocationRepository.findAllByPlantIDAndActive(plantId, true);
+        PlantAllocation bestAllocation = findBest(allocations);
+        if(bestAllocation == null){
+            return "";
+        }
+
+        return bestAllocation.getProject().getProjectID();
+
+    }
+    public PlantAllocation findBest(List<PlantAllocation> allocations){
+
+        if(allocations == null || allocations.isEmpty()){
+            return null;
+        }
+
+        PlantAllocation allocation = null;
+        for(PlantAllocation alloc : allocations){
+            if(alloc.getProject() == null){
+                continue;
+            }
+            if(!alloc.getProject().isActive()){
+                continue;
+            }
+            allocation = alloc;
+        }
+        return allocation;
+
+    }
+
 }

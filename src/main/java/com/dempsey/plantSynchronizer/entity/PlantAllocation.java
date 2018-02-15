@@ -3,6 +3,7 @@ package com.dempsey.plantSynchronizer.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -11,57 +12,60 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="Plant_Allocation")
-@NamedQuery(name="Plant_Allocation.findAll", query="SELECT p FROM Plant_Allocation p")
 public class PlantAllocation implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+
+	@Id
+	@Column(name="ID", unique=true, nullable=false)
+	private Integer id;
 
 	@Column(name="Active")
 	private boolean active;
 
 	@Column(name="Cost_Code")
-	private int costCode;
+	private Integer costCode;
 
 	@Column(name="Date_Available")
-	private String dateAvailable;
+	private Date dateAvailable;
 
 	@Column(name="Date_Created")
-	private String dateCreated;
+	private Date dateCreated;
 
 	@Column(name="Date_Required")
-	private String dateRequired;
+	private Date dateRequired;
 
 	@Column(name="Day_Rate")
-	private double dayRate;
+	private Double dayRate;
 
-	private String dWeek;
+	@Column(name="dweek")
+	private Date dWeek;
 
-	@Column(name="ID")
-	private int id;
 
 	@Column(name="Last_Modified")
 	private String lastModified;
 
 	@Column(name="Notes")
-	private Object notes;
+	private String notes;
 
 	@Column(name="Personnel")
-	private Object personnel;
+	private String personnel;
 
 	@Column(name="personnel_fk")
-	private int personnelFk;
+	private Integer personnelFk;
 
 	@Column(name="Plant_ID")
-	private int plantID;
+	private Integer plantID;
 
 	@Column(name="PM")
 	private String pm;
 
 	@Column(name="project_fk")
-	private int projectFk;
+	private Integer projectFk;
 
 	@Column(name="Scope")
 	private String scope;
-
+	@Transient
 	private Timestamp SSMA_TimeStamp;
 
 	@Column(name="State")
@@ -85,59 +89,59 @@ public class PlantAllocation implements Serializable {
 		this.active = active;
 	}
 
-	public int getCostCode() {
+	public Integer getCostCode() {
 		return costCode;
 	}
 
-	public void setCostCode(int costCode) {
+	public void setCostCode(Integer costCode) {
 		this.costCode = costCode;
 	}
 
-	public String getDateAvailable() {
+	public Date getDateAvailable() {
 		return dateAvailable;
 	}
 
-	public void setDateAvailable(String dateAvailable) {
+	public void setDateAvailable(Date dateAvailable) {
 		this.dateAvailable = dateAvailable;
 	}
 
-	public String getDateCreated() {
+	public Date getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(String dateCreated) {
+	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
-	public String getDateRequired() {
+	public Date getDateRequired() {
 		return dateRequired;
 	}
 
-	public void setDateRequired(String dateRequired) {
+	public void setDateRequired(Date dateRequired) {
 		this.dateRequired = dateRequired;
 	}
 
-	public double getDayRate() {
+	public Double getDayRate() {
 		return dayRate;
 	}
 
-	public void setDayRate(double dayRate) {
+	public void setDayRate(Double dayRate) {
 		this.dayRate = dayRate;
 	}
 
-	public String getdWeek() {
+	public Date getdWeek() {
 		return dWeek;
 	}
 
-	public void setdWeek(String dWeek) {
+	public void setdWeek(Date dWeek) {
 		this.dWeek = dWeek;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -149,35 +153,35 @@ public class PlantAllocation implements Serializable {
 		this.lastModified = lastModified;
 	}
 
-	public Object getNotes() {
+	public String getNotes() {
 		return notes;
 	}
 
-	public void setNotes(Object notes) {
+	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 
-	public Object getPersonnel() {
+	public String getPersonnel() {
 		return personnel;
 	}
 
-	public void setPersonnel(Object personnel) {
+	public void setPersonnel(String personnel) {
 		this.personnel = personnel;
 	}
 
-	public int getPersonnelFk() {
+	public Integer getPersonnelFk() {
 		return personnelFk;
 	}
 
-	public void setPersonnelFk(int personnelFk) {
+	public void setPersonnelFk(Integer personnelFk) {
 		this.personnelFk = personnelFk;
 	}
 
-	public int getPlantID() {
+	public Integer getPlantID() {
 		return plantID;
 	}
 
-	public void setPlantID(int plantID) {
+	public void setPlantID(Integer plantID) {
 		this.plantID = plantID;
 	}
 
@@ -189,11 +193,11 @@ public class PlantAllocation implements Serializable {
 		this.pm = pm;
 	}
 
-	public int getProjectFk() {
+	public Integer getProjectFk() {
 		return projectFk;
 	}
 
-	public void setProjectFk(int projectFk) {
+	public void setProjectFk(Integer projectFk) {
 		this.projectFk = projectFk;
 	}
 

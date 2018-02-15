@@ -1,5 +1,6 @@
 package com.dempsey.plantSynchronizer;
 
+import com.dempsey.plantSynchronizer.service.PlantAllocationService;
 import com.dempsey.plantSynchronizer.service.PlantListAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,9 @@ public class PlantSynchronizerApplication implements CommandLineRunner {
 	@Autowired
 	private PlantListAPIService apiService;
 
+	@Autowired
+	private PlantAllocationService allocationService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(PlantSynchronizerApplication.class, args);
@@ -21,6 +25,7 @@ public class PlantSynchronizerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		apiService.syncPlantListWithShirley();
+		//apiService.syncPlantListWithShirley();
+		allocationService.findAll();
 	}
 }

@@ -1,21 +1,29 @@
 package com.dempsey.plantSynchronizer;
 
+import com.dempsey.plantSynchronizer.dao.ApiRequestRepository;
+import com.dempsey.plantSynchronizer.dao.NimbusCivilPlantRepository;
+import com.dempsey.plantSynchronizer.entity.NimbusCivilPlant;
 import com.dempsey.plantSynchronizer.service.PlantAllocationService;
+import com.dempsey.plantSynchronizer.service.PlantListAPIForNimbusService;
 import com.dempsey.plantSynchronizer.service.PlantListAPIService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.util.List;
 
 @SpringBootApplication
-public class PlantSynchronizerApplication implements CommandLineRunner {
+public class PlantSynchronizerApplication{
+
+	private Logger log = LoggerFactory.getLogger(PlantSynchronizerApplication.class);
+	@Autowired
+	private PlantListAPIForNimbusService apiService;
 
 	@Autowired
-	private PlantListAPIService apiService;
-
-	@Autowired
-	private PlantAllocationService allocationService;
+	private ApiRequestRepository apiRequestRepository;
 
 
 	public static void main(String[] args) {
@@ -23,11 +31,10 @@ public class PlantSynchronizerApplication implements CommandLineRunner {
 	}
 
 
-	@Override
+	//@Override
 	public void run(String... args) throws Exception {
-		apiService.syncPlantListWithShirley();
-		//String department = allocationService.getDepartment(1570);
-		//System.out.println("department is : " + department);
+		//apiService.syncPlantListWithNimbus();
 
+		log.info("size of request table : " + apiRequestRepository.findAll().size());
 	}
 }

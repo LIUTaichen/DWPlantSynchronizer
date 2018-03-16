@@ -29,3 +29,11 @@ nbdist/
 .nb-gradle/
 *.class
 
+out/production/classes/com/dempsey/plantSynchronizer/entity/Project.class
+out/production/classes/com/dempsey/plantSynchronizer/entity/Project.class
+out/production/classes/com/dempsey/plantSynchronizer/entity/Project.class
+out/production/classes/com/dempsey/plantSynchronizer/PlantSynchronizerApplication.class
+out/production/classes/com/dempsey/plantSynchronizer/service/JobScheduleService.class
+out/production/classes/com/dempsey/plantSynchronizer/service/PlantListAPIService.class
+out/production/classes/com/dempsey/plantSynchronizer/util/PlantsUtil.class
+out/production/resources/application.properties

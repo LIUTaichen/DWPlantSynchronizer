@@ -1,7 +1,9 @@
 package com.dempsey.plantSynchronizer.service;
 
 
+import com.dempsey.plantSynchronizer.dao.ApiRequestRepository;
 import com.dempsey.plantSynchronizer.dao.NimbusCivilPlantRepository;
+import com.dempsey.plantSynchronizer.entity.ApiRequest;
 import com.dempsey.plantSynchronizer.entity.NimbusCivilPlant;
 import com.dempsey.plantSynchronizer.util.SheetAPIUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -43,6 +45,10 @@ public class PlantListAPIForNimbusService {
 
     @Value("${plants.sheet.range}")
     private String plantsRange;
+
+
+    @Autowired
+    private ApiRequestRepository apiRequestRepository;
 
     @Autowired
     private NimbusCivilPlantRepository plantRepository;
@@ -225,4 +231,78 @@ public class PlantListAPIForNimbusService {
         }
 
     }
+
+    public List<ValueRange> generateValueRangeForAllocation(){
+
+
+        log.debug("calling sheet service");
+        ValueRange range = this.loadSheet();
+        List<String> headers = SheetAPIUtil.getHeaders(range.getValues().get(0));
+        range.getValues().remove(0);
+        List<Map<String, String>> converted = SheetAPIUtil.convertRange(range.getValues(), headers);
+        Set<String> fleetIdInSheet = new HashSet<String>();
+        for(Map<String, String> map: converted){
+            if(!map.get("Plant #").isEmpty()){
+                fleetIdInSheet.add(map.get("Plant #"));
+            }
+        }
+
+        List<ValueRange> updatesRequired = new ArrayList<ValueRange>();
+
+        for(int i = 0; i<converted.size(); i++){
+            Map<String, String> valueMap = converted.get(i);
+            String plantNumber = valueMap.get("Plant #");
+            ApiRequest request = apiRequestRepository.findTopByJobIdIsNotNullAndDatasetAndAssetFleetIdOrderByTimestampDesc("Office", plantNumber);
+            if(request == null){
+               continue;
+            }
+
+            String jobNo = request.getJob().getJobNumber();
+            log.info("found site " +  jobNo + " for plant : " + plantNumber + " This record is in row " + (i + 2));
+
+            if(jobNo.equals(valueMap.get("Department"))){
+                log.info("This is the same as the previous allocation. No need to update sheet");
+                continue;
+            }
+
+            Integer columnIndex = headers.indexOf("Department") + 1;
+            Integer rowNumber = i + 2;
+
+            ValueRange valueRange = new ValueRange();
+            String rangeToUpdate = SheetAPIUtil.getRangeString(columnIndex, rowNumber);
+            valueRange.setRange("Plants!" + rangeToUpdate);
+            List<List<Object>> outerList = new ArrayList<List<Object>>();
+            List<Object> innerList = new ArrayList<>();
+            innerList.add(jobNo);
+            outerList.add(innerList);
+            valueRange.setValues(outerList);
+            updatesRequired.add(valueRange);
+
+        }
+
+        return updatesRequired;
+
+    }
+
+    public void pushUpdates(List<ValueRange> toBeUpdated){
+        if(toBeUpdated.isEmpty()){
+            log.info("No update needs to be done. Plant list in sync with Nimbus.");
+        }else{
+            log.info("Calling sheets api to update plant list.");
+            for(ValueRange item: toBeUpdated){
+                try {
+                    log.info(item.toPrettyString());
+                }catch(Exception e){
+                    log.error("error when printing rangeitem", e);
+                }
+            }
+            this.updateRange(toBeUpdated);
+        }
+    }
+
+    public void updatePlantLocation(){
+        this.pushUpdates(this.generateValueRangeForAllocation());
+    }
+
+
 }

@@ -1,9 +1,6 @@
 package com.dempsey.plantSynchronizer.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -62,14 +59,20 @@ public class ApiRequest {
     private String deviceId;
     @Column(name="nextserviceestdate")
     private Date nextServiceEstDate;
-    @Column(name="u_editorassetitemid")
-    private Integer u_EditorAssetItemID;
+
+    @ManyToOne
+    @JoinColumn(name = "u_editorassetitemid")
+    private NimbusCivilPlant asset;
+
     @Column(name="u_updateddatetime")
     private Date u_UpdatedDateTime;
     @Column(name="nextservicekm")
     private Double nextServiceKM;
-    @Column(name="u_jobid")
-    private Integer u_JobID;
+
+    @ManyToOne
+    @JoinColumn(name = "u_jobid")
+    private Job job;
+
     @Column(name="u_employee", length=8)
     private String u_Employee;
 
@@ -274,12 +277,12 @@ public class ApiRequest {
         this.nextServiceEstDate = nextServiceEstDate;
     }
 
-    public Integer getU_EditorAssetItemID() {
-        return u_EditorAssetItemID;
+    public NimbusCivilPlant getAsset() {
+        return asset;
     }
 
-    public void setU_EditorAssetItemID(Integer u_EditorAssetItemID) {
-        this.u_EditorAssetItemID = u_EditorAssetItemID;
+    public void setAsset(NimbusCivilPlant asset) {
+        this.asset = asset;
     }
 
     public Date getU_UpdatedDateTime() {
@@ -298,12 +301,12 @@ public class ApiRequest {
         this.nextServiceKM = nextServiceKM;
     }
 
-    public Integer getU_JobID() {
-        return u_JobID;
+    public Job getJob() {
+        return job;
     }
 
-    public void setU_JobID(Integer u_JobID) {
-        this.u_JobID = u_JobID;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public String getU_Employee() {
@@ -342,10 +345,10 @@ public class ApiRequest {
                 ", rucOdoType='" + rucOdoType + '\'' +
                 ", deviceId='" + deviceId + '\'' +
                 ", nextServiceEstDate=" + nextServiceEstDate +
-                ", u_EditorAssetItemID=" + u_EditorAssetItemID +
+                ", AssetItem=" + asset.toString() +
                 ", u_UpdatedDateTime=" + u_UpdatedDateTime +
                 ", nextServiceKM=" + nextServiceKM +
-                ", u_JobID=" + u_JobID +
+                ", job=" + job.toString() +
                 ", u_Employee='" + u_Employee + '\'' +
                 '}';
     }

@@ -3,6 +3,8 @@ package com.dempsey.plantSynchronizer.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -56,6 +58,9 @@ public class NimbusCivilPlant implements Serializable {
 
     @Column(name="u_kmsuntilnextservice", precision=28, scale=6)
     private Integer units_Til_Maintenance;
+
+    @OneToMany(mappedBy = "asset")
+    private Set<ApiRequest> requests = new HashSet<ApiRequest>();
 
 
     public NimbusCivilPlant() {
@@ -176,6 +181,14 @@ public class NimbusCivilPlant implements Serializable {
 
     public void setUnits_Til_Maintenance(Integer units_Til_Maintenance) {
         this.units_Til_Maintenance = units_Til_Maintenance;
+    }
+
+    public Set<ApiRequest> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<ApiRequest> requests) {
+        this.requests = requests;
     }
 
     @Override
